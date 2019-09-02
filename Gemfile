@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'devise'
+gem 'paperclip'
 
 
 # Use Redis adapter to run Action Cable in production
