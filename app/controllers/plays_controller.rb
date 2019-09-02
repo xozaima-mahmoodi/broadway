@@ -2,7 +2,12 @@ class PlaysController < ApplicationController
   before_action :find_play, only: [:show, :edit, :update, :destroy]
   
   def index
-    @plays = Play.all.order("created_at DESC")
+    if params[:category].blank?
+      @plays = Play.all.order("created_at DESC")
+    else
+      @category_id = Category.find_by(name: params[:category]).id
+      @plays = Play.where(:category_id => @category_id).order("created_at DESC")
+    end
   end
 
   def show
@@ -16,6 +21,7 @@ class PlaysController < ApplicationController
   def create
     @play = current_user.plays.build(play_params)
     @play.category_id = params[:category_id]
+   
     if @play.save
       redirect_to root_path
     else
